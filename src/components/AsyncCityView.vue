@@ -59,9 +59,8 @@ console.log(locationName, conditionText, currentTemp, localTime)
           localTime
         }}
       </p>
-      <p class="text-sm mb-12">Sorry, I will update this to a more palatable version.</p>
       <p class="text-8xl mb-8"> It is
-        {{ currentTemp }}&deg;
+        {{ currentTemp }}&deg;C
       </p>
       <p>I will add more detail on hourly forecast, weekly and all</p>
       <!-- <p>

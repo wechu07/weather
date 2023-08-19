@@ -68,7 +68,7 @@ const getSearchResults = () => {
         <template v-else>
           <li v-for="searchResult in mapboxSearchResults" :key="searchResult.id" class="py-2 cursor-pointer"
             @click="previewCity(searchResult)">
-            {{ `We have ${searchResult.text} or more accurately, ${searchResult.place_name}` }}
+            {{ `${searchResult.place_name}` }}
           </li>
         </template>
       </ul>
