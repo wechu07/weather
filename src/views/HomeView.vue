@@ -11,13 +11,13 @@ const router = useRouter();
 
 const previewCity = (searchResult) => {
   console.log(searchResult);
-  const [city, region] = searchResult.place_name.split(",");
+  let [city, region] = searchResult.place_name.split(",");
+  region = region.replaceAll(" ", "");
   console.log(city, region);
+
   router.push({
     name: "cityView",
-    params: {
-      city: city.replaceAll(" ", "")
-    },
+    params: { region: region, city: city },
     query: {
       // for example
       /**
@@ -74,6 +74,14 @@ const getSearchResults = () => {
           </li>
         </template>
       </ul>
+    </div>
+    <div class="flex flex-col gap-4">
+      <Suspense>
+        <CityList />
+        <template #fallback>
+          <CityCardSkeleton />
+        </template>
+      </Suspense>
     </div>
   </main>
 </template>

@@ -12,6 +12,7 @@ const getWeatherData = async () => {
     await new Promise((res) => setTimeout(res, 1000));
 
     const locationName = await forecastWeatherData.data.location.name;
+    const region = await forecastWeatherData.data.location.region;
     const localTime = await forecastWeatherData.data.location.localtime;
     const currentTemp = await forecastWeatherData.data.current.temp_c;
     const icon = await forecastWeatherData.data.current.condition.icon;
@@ -31,6 +32,7 @@ const getWeatherData = async () => {
 
     return {
       locationName: locationName,
+      region: region,
       currentTemp: currentTemp,
       localTime: parsedTime,
       icon: icon,
@@ -41,8 +43,19 @@ const getWeatherData = async () => {
     console.log(err)
   }
 }
-const { locationName, currentTemp, localTime, icon, hourlyForecast } = await getWeatherData();
-// console.log(hourlyForecast);
+const { locationName, region, currentTemp, localTime, icon, hourlyForecast } = await getWeatherData();
+// console.log(locationName);
+
+const router = useRouter();
+const removeCity = () => {
+  const cities = JSON.parse(localStorage.getItem("savedCities"));
+  const updatedCities = cities.filter((city) => city.id !== route.query.id);
+  localStorage.setItem("savedCities", JSON.stringify(updatedCities));
+  router.push({
+    name: "home",
+  });
+};
+
 </script>
 
 <template>
@@ -50,7 +63,7 @@ const { locationName, currentTemp, localTime, icon, hourlyForecast } = await get
     <!-- the banner -->
     <div v-if="route.query.preview" class="text-white p-4 bg-primary w-full text-center">
       <p>
-        You are currently previewing {{ locationName }}, click the "+" icon to start
+        You are currently previewing {{ route.params.city }}, click the "+" icon to start
         tracking this city.
       </p>
     </div>
@@ -87,6 +100,14 @@ const { locationName, currentTemp, localTime, icon, hourlyForecast } = await get
           </div>
         </div>
       </div>
+    </div>
+
+    <div
+      class="flex items-center gap-2 py-12 text-white cursor-pointer duration-150 hover:text-red-500"
+      @click="removeCity"
+    >
+      <i class="fa-solid fa-trash"></i>
+      <p>Remove City</p>
     </div>
   </div>
 </template>

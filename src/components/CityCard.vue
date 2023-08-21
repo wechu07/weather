@@ -13,22 +13,22 @@ defineProps({
   >
     <div class="flex flex-col flex-1">
       <h2 class="text-3xl">{{ city.city }}</h2>
-      <h3>{{ city.state }}</h3>
+      <h3>{{ city.region }}</h3>
     </div>
 
     <div class="flex flex-col gap-2">
       <p class="text-3xl self-end">
-        {{ Math.round(city.weather.main.temp) }}&deg;
+        {{ city.weather.current.condition.text }}
       </p>
       <div class="flex gap-2">
         <span class="text-xs">
-          H:
-          {{ Math.round(city.weather.main.temp_max) }}&deg;
+          Temp:
+          {{ city.weather.current.temp_c }}&deg;
         </span>
-        <span class="text-xs">
+        <!-- <span class="text-xs">
           L:
           {{ Math.round(city.weather.main.temp_min) }}&deg;
-        </span>
+        </span> -->
       </div>
     </div>
   </div>
