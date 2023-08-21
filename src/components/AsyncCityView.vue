@@ -9,8 +9,7 @@ const getWeatherData = async () => {
   try {
     const forecastWeatherData = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${route.query.lat},${route.query.lng}&days=1&aqi=no&alerts=no`);
 
-    await new Promise((res) => setTimeout(res, 1000));
-
+    
     const locationName = await forecastWeatherData.data.location.name;
     const region = await forecastWeatherData.data.location.region;
     const localTime = await forecastWeatherData.data.location.localtime;
@@ -29,6 +28,9 @@ const getWeatherData = async () => {
     });
 
     const parsedTime = new Date(localTime).toLocaleTimeString();
+
+    await new Promise((res) => setTimeout(res, 1500));
+
 
     return {
       locationName: locationName,
